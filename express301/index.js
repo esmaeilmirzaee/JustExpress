@@ -44,6 +44,11 @@ app.get('/welcome', validateUser, (req, res) => {
     }
 });
 
+app.get('/logout', (req, res, next) => {
+    res.clearCookie('email');
+    res.redirect('/');
+});
+
 function validateUser(req, res, next) {
     if (req.cookies.email) {
         res.locals.validate = true;
