@@ -10,11 +10,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
 app.set('views', `${process.cwd()}/views`);
 
-app.get('/', (req, res) => {
-    res.render('index');
+function validateUser(req, res, next) {
+    res.locals.validate = true;
+    next();
+}
+
+app.get('/', validateUser, (req, res) => {
+    res.render('index', { html: '<h1>Adds</h1>' });
 });
 
 app.listen(port, () => {
