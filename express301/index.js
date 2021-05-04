@@ -3,6 +3,8 @@ const app = express();
 
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+
+const loginRouter = require('./routes/loginRouter');
 let port = process.env.PORT || 3000;
 app.use(helmet());
 app.use(express.static('public'));
@@ -18,9 +20,11 @@ app.get('/', (req, res, next) => {
     res.render('home');
 });
 
-app.get('/login', (req, res, next) => {
-    res.render('login');
-});
+// app.get('/login', (req, res, next) => {
+//     res.render('login');
+// });
+
+app.use('/login', loginRouter);
 
 // session stored in the server and will send to user when it requested
 // cookies stored in the browser
